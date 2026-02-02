@@ -19,7 +19,7 @@ class Role
         // $user = $request->user();
 
         if ($request->user()->role !== $role) {
-            //if you are not login as an admin
+            //if you are not login as an admin it will return to the dashboard 
             return redirect('/dashboard');
         }
         return $next($request);
