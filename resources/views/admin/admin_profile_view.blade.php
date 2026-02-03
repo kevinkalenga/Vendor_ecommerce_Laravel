@@ -1,7 +1,7 @@
 @extends('admin.admin_dashboard')	
 
 @section('admin')
-
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 
 
@@ -102,7 +102,7 @@
 												<h6 class="mb-0">Photo</h6>
 											</div>
 											<div class="col-sm-9 text-secondary">
-												<input type="file" name="photo" class="form-control" value="{{$adminData->photo}}"  />
+												<input type="file" name="photo" class="form-control" value="{{$adminData->photo}}"  id="image" />
 											</div>
 										</div>
 										
@@ -113,7 +113,7 @@
 												<h6 class="mb-0"></h6>
 											</div>
 											<div class="col-sm-9 text-secondary">
-												<img  src="{{(!empty($adminData->photo)) ? url('upload/admin_images/'.$adminData->photo) : url('upload/default_avatar.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+												<img  id="showImage"  src="{{(!empty($adminData->photo)) ? url('upload/admin_images/'.$adminData->photo) : url('upload/default_avatar.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
 											</div>
 										</div>
 										<div class="row">
@@ -133,7 +133,17 @@
 
 
    
-		
+			<script type="text/javascript">
+               $(document).ready(function(){
+				$('#image').change(function(e){
+					var reader = new FileReader();
+					reader.onload = function(e){
+						$("#showImage").attr('src', e.target.result)
+					}
+					reader.readAsDataURL(e.target.files['0'])
+				})
+			   })
+			</script>
 
 
 
