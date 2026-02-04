@@ -331,14 +331,14 @@
 					
 					<div class="user-box dropdown">
 						<a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							<img src="{{(!empty($vendorData->photo)) ? url('upload/admin_images/'.$vendorData->photo) : url('upload/default_avatar.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="50">
+							<img src="{{(!empty($vendorData->photo)) ? url('upload/vendor_images/'.$vendorData->photo) : url('upload/default_avatar.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="50">
 							<div class="user-info ps-3">
 								<p class="user-name mb-0">{{ Auth::user()->name }}</p>
 								<p class="designattion mb-0">{{ Auth::user()->username }}</p>
 							</div>
 						</a>
 						<ul class="dropdown-menu dropdown-menu-end">
-							<li><a class="dropdown-item" href="{{route('admin.profile')}}"><i class="bx bx-user"></i><span>Profile</span></a>
+							<li><a class="dropdown-item" href="{{route('vendor.profile')}}"><i class="bx bx-user"></i><span>Profile</span></a>
 							</li>
 							<li><a class="dropdown-item" href="{{route('admin.change.profile')}}"><i class="bx bx-cog"></i><span>Change Password</span></a>
 							</li>
