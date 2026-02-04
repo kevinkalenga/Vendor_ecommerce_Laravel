@@ -28,7 +28,7 @@
 						<div class="row">
 							
 							<div class="col-lg-12">
-							  <form action="{{route('admin.profile.store')}}" method="post" >
+							  <form action="{{route('admin.password.update')}}" method="post" >
 								@csrf
 								@if(session('status')) 
                                  <div class="alert alert-success" role="alert">
@@ -49,7 +49,7 @@
 												<h6 class="mb-0">Old Password</h6>
 											</div>
 											<div class="col-sm-9 text-secondary">
-												<input type="password" name="old_password" class="form-control @error('old_password') is-invalid @enderror" id="old_password"  />
+												<input type="password" name="old_password" class="form-control @error('old_password') is-invalid @enderror" id="old_password" placeholder="Old Password"  />
 												 @error('old_password') 
                                                    <span class="text-danger">{{$message}}</span>
 												 @enderror
@@ -60,7 +60,7 @@
 												<h6 class="mb-0">New Password</h6>
 											</div>
 											<div class="col-sm-9 text-secondary">
-												<input type="password" name="new_password" class="form-control @error('new_password') is-invalid @enderror" id="new_password" />
+												<input type="password" name="new_password" class="form-control @error('new_password') is-invalid @enderror" id="new_password" placeholder="New Password" />
 												 @error('new_password') 
                                                    <span class="text-danger">{{$message}}</span>
 												 @enderror
@@ -71,7 +71,7 @@
 												<h6 class="mb-0">Confirm New Password</h6>
 											</div>
 											<div class="col-sm-9 text-secondary">
-												<input type="password" name="new_password_confirmation" class="form-control" id="new_password_confirmation" />
+												<input type="password" name="new_password_confirmation" class="form-control" id="new_password_confirmation" placeholder="New Password Confirmation" />
 											</div>
 										</div>
 										
