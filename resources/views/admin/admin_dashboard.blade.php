@@ -25,7 +25,7 @@
 	<link rel="stylesheet" href="{{asset('adminbackend/assets/css/header-colors.css')}}" />
 	<!-- toastr CSS -->
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
-	<title>Rukada - Responsive Bootstrap 5 Admin Template</title>
+	<title>Admin Dashboard</title>
 </head>
 
 <body>
