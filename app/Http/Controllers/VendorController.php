@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Hash;
 use App\Models\User;
 
 class VendorController extends Controller
@@ -71,5 +72,52 @@ class VendorController extends Controller
        return redirect()->back()->with($notification);
      
     }
+
+
+    public function VendorChangePassword()
+    {
+        // get the authenticated user id
+        $id = Auth::user()->id;
+        $vendorData = User::find($id);
+        return view('vendor.vendor_change_password', compact('vendorData'));
+    }
+
+
+
+    public function VendorPasswordUpdate(Request $request) 
+    {
+        // validation
+       $request->validate([
+          'old_password' => 'required',
+          'new_password' => 'required|confirmed',
+          
+       ]);
+        
+      // check that old pwd and the new authenticated pwd match   
+       if(!Hash::check($request->old_password, auth::user()->password)) {
+
+            $notification = array(
+              'message' => 'Old Password Does not Match!',
+              'alert-type' => 'error'
+            );
+
+          return back()->with($notification);
+    
+    
+        }
+
+        // Update the new pwd 
+        User::whereId(auth::user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        $notification = array(
+           'message' => 'Your Password Is Updated Successfully',
+           'alert-type' => 'success'
+        );
+
+       return back()->with($notification);
+    }
+
 
 }
