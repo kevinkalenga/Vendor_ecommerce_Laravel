@@ -218,7 +218,7 @@
                                             </div>
                                             <div class="card-body">
                                                 
-                                                <form action="{{route('user.profile.store')}}" method="post">
+                                                <form action="{{route('user.password.update')}}" method="post">
 								                    @csrf
                                                     
                                                     
