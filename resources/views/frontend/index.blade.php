@@ -534,9 +534,9 @@
                 <!--End tab-content-->
             </div>
 
-
+    <!--End Computer Category -->
   </section>
-        <!--End Computer Category -->
+       
 
 
 
