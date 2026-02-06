@@ -44,6 +44,8 @@
                                         <div class="card">
                                             <div class="card-header">
                                                 <h3 class="mb-0">Hello {{Auth::user()->name}}</h3>
+                                                <br>
+                                                <img  id="showImage"  src="{{(!empty($userData->photo)) ? url('upload/user_images/'.$userData->photo) : url('upload/default_avatar.jpg')}}" alt="User" class="rounded-circle p-1 bg-primary" width="110">
                                             </div>
                                             <div class="card-body">
                                                 <p>
@@ -165,7 +167,8 @@
                                             </div>
                                             <div class="card-body">
                                                 
-                                                <form method="post" name="enq">
+                                                <form action="{{route('user.profile.store')}}" method="post" enctype="multipart/form-data">
+								                    @csrf
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
                                                             <label>User Name <span class="required">*</span></label>
