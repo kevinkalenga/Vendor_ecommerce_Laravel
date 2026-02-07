@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Backend\BrandController;
 
 Route::get('/', function () {
     return view('frontend.index');
@@ -46,6 +47,14 @@ Route::middleware(['auth', 'role:vendor'])->group(function(){
 });
 
 Route::get('/vendor/login', [VendorController::class, 'VendorLogin']);
+
+// Brand will be accessible when the role willbe admin
+Route::middleware(['auth', 'role:admin'])->group(function(){
+// Brand and BrandController will manage all the routes inside
+  Route::controller(BrandController::class)->group(function(){
+    Route::get('/all/brand', 'AllBrand')->name('all.brand');
+  });
+});
 
 
 
