@@ -70,16 +70,7 @@ class BrandController extends Controller
 
 
        return redirect()->route('all.brand')->with($notification);
-        
-        
-        
-        
-        // Redirection avec message de succès
-        // return redirect()->route('brand.all')->with([
-        //     'message' => 'Brand Data Inserted Successfully!',
-        //     'alert-type' => 'success',
-        // ]);
-
+    
     } catch (\Exception $e) {
         // Gestion des erreurs
         return back()->withErrors([
@@ -87,5 +78,15 @@ class BrandController extends Controller
         ])->withInput();
     }
   }
+
+
+   public function EditBrand($id)
+   {
+      //Find the specific brand record or fail with 404
+      $brand = Brand::findOrFail($id);
+
+      //Return the edit view with the brand data
+      return view('backend.brand.brand_edit', compact('brand'));
+   }
 
 }
