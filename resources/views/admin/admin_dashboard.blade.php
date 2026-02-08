@@ -83,6 +83,13 @@
 			$('#example').DataTable();
 		  } );
 	 </script>
+
+	  
+     <!-- SweetAlert2 -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	 
+	   <!-- Your delete confirmation JS -->
+     <script src="{{asset('adminbackend/assets/js/code.js')}}"></script>
 	 
 	  <!-- Toastr -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

@@ -156,4 +156,37 @@ class BrandController extends Controller
   }
 
 
+ public function DeleteBrand($id)
+ {
+    try {
+        // Récupération de la marque
+        $brand = Brand::findOrFail($id);
+
+        // Vérifier et supprimer l’image du dossier public
+        if ($brand->brand_image && file_exists(public_path($brand->brand_image))) {
+            unlink(public_path($brand->brand_image));
+        }
+
+        // Supprimer la marque de la base de données
+        $brand->delete();
+
+        // Redirection avec message de succès
+         $notification = array(
+           'message' => 'Brand Data Deleted Successfully!',
+           'alert-type' => 'success'
+        );
+
+
+       return redirect()->route('all.brand')->with($notification);
+
+    } catch (\Exception $e) {
+        // Gestion des erreurs
+        return back()->withErrors([
+            'error' => $e->getMessage(),
+        ]);
+    }
+  }
+
+
+
 }
