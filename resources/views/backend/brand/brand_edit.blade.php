@@ -28,8 +28,9 @@
 						<div class="row">
 						
 							<div class="col-lg-12">
-							 <form id="myForm" action="{{route('store.brand')}}" method="post" enctype="multipart/form-data">
+							 <form id="myForm" action="{{route('update.brand', $brand->id)}}" method="post" enctype="multipart/form-data">
 								@csrf
+								
 								<div class="card">
 									<div class="card-body">
 										

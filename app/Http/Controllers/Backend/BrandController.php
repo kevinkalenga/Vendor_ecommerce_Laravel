@@ -89,4 +89,71 @@ class BrandController extends Controller
       return view('backend.brand.brand_edit', compact('brand'));
    }
 
+
+ public function UpdateBrand(Request $request, $id)
+ {
+    // Validation des données
+    $request->validate([
+        'brand_name'  => 'required|string|max:255', // Nom obligatoire
+        'brand_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Image facultative
+    ]);
+
+    try {
+        // Récupération de la marque à modifier
+        $brand = Brand::findOrFail($id);
+
+        // Mise à jour du nom de la marque
+        $brand->brand_name = $request->brand_name;
+
+        // Vérifier si une nouvelle image est envoyée
+        if ($request->hasFile('brand_image')) {
+
+            // Supprimer l’ancienne image si elle existe
+            if ($brand->brand_image && file_exists(public_path($brand->brand_image))) {
+                unlink(public_path($brand->brand_image));
+            }
+
+            // Traitement de la nouvelle image
+            $image = $request->file('brand_image');
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+
+            $uploadPath = public_path('upload/brand');
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0775, true);
+            }
+
+            // Redimensionnement et sauvegarde avec Intervention Image
+            $manager = new ImageManager(new Driver());
+            $manager->read($image)
+                ->resize(300, 300, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })
+                ->save($uploadPath . '/' . $name_gen);
+
+            // Mise à jour du chemin de l’image
+            $brand->brand_image = 'upload/brand/' . $name_gen;
+        }
+
+        // Sauvegarde en base de données
+        $brand->save();
+
+        // Redirection avec message de succès
+         $notification = array(
+           'message' => 'Brand Data Updated Successfully!',
+           'alert-type' => 'success'
+        );
+
+
+       return redirect()->route('all.brand')->with($notification);
+
+    } catch (\Exception $e) {
+        // Gestion des erreurs
+        return back()->withErrors([
+            'error' => $e->getMessage(),
+        ])->withInput();
+    }
+  }
+
+
 }
