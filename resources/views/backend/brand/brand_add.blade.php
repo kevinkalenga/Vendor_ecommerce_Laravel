@@ -28,7 +28,7 @@
 						<div class="row">
 						
 							<div class="col-lg-12">
-							 <form action="{{route('store.brand')}}" method="post" enctype="multipart/form-data">
+							 <form id="myForm" action="{{route('store.brand')}}" method="post" enctype="multipart/form-data">
 								@csrf
 								<div class="card">
 									<div class="card-body">
@@ -50,7 +50,7 @@
 												<h6 class="mb-0">Brand Image</h6>
 											</div>
 											<div class="col-sm-9 text-secondary">
-												<input type="file" name="brand_image" class="form-control"   id="image" />
+												<input type="file" name="brand_image" class="form-control form-group"   id="image" />
 											</div>
 										</div>
 										
@@ -81,6 +81,41 @@
 
 
    
+			<script type="text/javascript">
+$(document).ready(function () {
+    $('#myForm').validate({
+        rules: {
+            brand_name: {
+                required: true,
+            },
+            
+        },
+        messages: {
+            brand_name: {
+                required: 'Please enter brand name',
+            },
+            
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.after(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        },
+    });
+});
+</script>
+
+			
+			
+			
+			
+			
 			<script type="text/javascript">
                $(document).ready(function(){
 				$('#image').change(function(e){
