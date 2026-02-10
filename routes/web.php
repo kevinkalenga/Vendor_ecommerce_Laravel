@@ -7,6 +7,7 @@ use App\Http\Controllers\VendorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\SubCategoryController;
 
 Route::get('/', function () {
     return view('frontend.index');
@@ -70,6 +71,12 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/edit/brand/{id}', 'EditCategory')->name('edit.category');
     Route::post('/update/category/{id}', 'UpdateCategory')->name('update.category');
     Route::get('/delete/category/{id}', 'DeleteCategory')->name('delete.category');
+  });
+  // All SubCategory
+
+  Route::controller(SubCategoryController::class)->group(function(){
+    Route::get('/all/subcategory', 'AllSubCategory')->name('all.subcategory');
+  
   });
 
 
