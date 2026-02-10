@@ -2,7 +2,7 @@
 
 @section('admin')
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 		<div class="page-content">
 				<!--breadcrumb-->
@@ -19,7 +19,7 @@
 					</div>
 					<div class="ms-auto">
 						<div class="btn-group">
-							<a href="#" class="btn btn-primary">Add SubCategory</a>
+							<a href="{{route('add.subcategory')}}" class="btn btn-primary">Add SubCategory</a>
 						</div>
 					</div>
 				</div>
@@ -43,7 +43,7 @@
 								 @foreach($subcategories as $key => $item)
 									<tr>
 										<td>{{ $key+1 }}</td>
-										<td>{{$item->category_id}}</td>
+										<td>{{$item['category']['category_name']}}</td>
 										<td>{{$item->subcategory_name}}</td>
 									
 										<td>

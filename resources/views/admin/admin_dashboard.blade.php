@@ -52,11 +52,11 @@
 	     @include('admin.body.footer')
 	</div>
 	<!--end wrapper-->
-
+    <script src="{{asset('adminbackend/assets/js/jquery.min.js')}}"></script>
 	<!-- Bootstrap JS -->
 	<script src="{{asset('adminbackend/assets/js/bootstrap.bundle.min.js')}}"></script>
 	<!--plugins-->
-	<script src="{{asset('adminbackend/assets/js/jquery.min.js')}}"></script>
+	
 	<script src="{{asset('adminbackend/assets/plugins/simplebar/js/simplebar.min.js')}}"></script>
 	<script src="{{asset('adminbackend/assets/plugins/metismenu/js/metisMenu.min.js')}}"></script>
 	<script src="{{asset('adminbackend/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js')}}"></script>
@@ -73,7 +73,9 @@
 			  $(".knob").knob();
 		  });
 	  </script>
-	  <script src="{{asset('adminbackend/assets/js/index.js')}}"></script>
+	  
+	 
+	  <script src="{{asset('adminbackend/assets/js/index.js')}}"></script> 
 	  <script src="{{asset('adminbackend/assets/js/validate.min.js')}}"></script>
 	  	
 	 <!-- DataTable -->
