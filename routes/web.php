@@ -67,7 +67,9 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/all/category', 'AllCategory')->name('all.category');
     Route::get('/add/category', 'AddCategory')->name('add.category');
     Route::post('/store/category', 'StoreCategory')->name('store.category');
-  
+    Route::get('/edit/brand/{id}', 'EditCategory')->name('edit.category');
+    Route::post('/update/category/{id}', 'UpdateCategory')->name('update.category');
+    Route::get('/delete/category/{id}', 'DeleteCategory')->name('delete.category');
   });
 
 
