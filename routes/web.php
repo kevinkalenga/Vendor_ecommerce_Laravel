@@ -48,7 +48,8 @@ Route::middleware(['auth', 'role:vendor'])->group(function(){
     Route::post('/vendor/password/update', [VendorController::class, 'VendorPasswordUpdate'])->name('vendor.password.update');
 });
 
-Route::get('/vendor/login', [VendorController::class, 'VendorLogin']);
+Route::get('/vendor/login', [VendorController::class, 'VendorLogin'])->name('vendor.login');
+Route::get('/become/vendor', [VendorController::class, 'BecomeVendor'])->name('become.vendor');
 
 // Brand will be accessible when the role willbe admin
 Route::middleware(['auth', 'role:admin'])->group(function(){

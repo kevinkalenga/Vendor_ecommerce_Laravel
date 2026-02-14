@@ -119,5 +119,10 @@ class VendorController extends Controller
        return back()->with($notification);
     }
 
+    public function BecomeVendor()
+    {
+        return view('auth.become_vendor');
+    }
+
 
 }
