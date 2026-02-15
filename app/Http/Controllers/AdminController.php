@@ -112,5 +112,11 @@ class AdminController extends Controller
        return back()->with($notification);
     }
 
+    public function InactiveVendor()
+    {
+        $inactiveVendor = User::where('status', 'inactive')->where('role', 'vendor')->latest()->get(); 
+        return view('backend.vendor.inactive_vendor', compact('inactiveVendor'));
+    }
+
 
 }
