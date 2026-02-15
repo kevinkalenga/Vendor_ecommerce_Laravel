@@ -15,6 +15,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('frontend/assets/imgs/theme/favicon.svg')}}" />
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{asset('frontend/assets/css/main.css?v=5.3')}}" />
+    
 </head>
 
 <body>
@@ -46,7 +47,7 @@
                                             <h1 class="mb-5">Become Vendor</h1>
                                             <p class="mb-30">Already have a vendor account? <a href="{{route('vendor.login')}}">Vendor Login</a></p>
                                         </div>
-                                         <form method="POST" action="{{ route('register') }}">
+                                         <form method="POST" action="{{ route('vendor.register') }}">
                                             @csrf
                                             
                                             <div class="form-group">
@@ -54,7 +55,7 @@
                                             </div>
                                             
                                             <div class="form-group">
-                                                <input type="text" required="" id="name" name="name" placeholder="Username" />
+                                                <input type="text" required="" id="username" name="username" placeholder="Username" />
                                             </div>
                                             <div class="form-group">
                                                 <input type="email" id="email" required="" name="email" placeholder="Email" />

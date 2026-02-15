@@ -50,6 +50,7 @@ Route::middleware(['auth', 'role:vendor'])->group(function(){
 
 Route::get('/vendor/login', [VendorController::class, 'VendorLogin'])->name('vendor.login');
 Route::get('/become/vendor', [VendorController::class, 'BecomeVendor'])->name('become.vendor');
+Route::post('/vendor/register', [VendorController::class, 'VendorRegister'])->name('vendor.register');
 
 // Brand will be accessible when the role willbe admin
 Route::middleware(['auth', 'role:admin'])->group(function(){
