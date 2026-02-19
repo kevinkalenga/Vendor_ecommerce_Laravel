@@ -28,8 +28,9 @@
 						<div class="row">
 							
 							<div class="col-lg-12">
-							 <form action="{{route('vendor.profile.store')}}" method="post" enctype="multipart/form-data">
+							 <form action="{{route('active.vendor.approve')}}" method="post" enctype="multipart/form-data">
 								@csrf
+								<input type="hidden" name="id" value="{{ $inactiveVendorDetails->id }}">
 								<div class="card">
 									<div class="card-body">
 										<div class="row mb-3">
@@ -37,7 +38,7 @@
 												<h6 class="mb-0">User Name</h6>
 											</div>
 											<div class="col-sm-9 text-secondary">
-												<input type="text" class="form-control" value="{{$inactiveVendorDetails->username}}" disabled/>
+												<input type="text" name="username" class="form-control" value="{{$inactiveVendorDetails->username}}" />
 											</div>
 										</div>
 										<div class="row mb-3">
