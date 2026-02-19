@@ -123,5 +123,11 @@ class AdminController extends Controller
         return view('backend.vendor.active_vendor', compact('activeVendor'));
     }
 
+    public function InactiveVendorDetails($id)
+    {
+      $inactiveVendorDetails = User::findOrFail($id);
+      return view('backend.vendor.inactive_vendor_details', compact('inactiveVendorDetails'));
+    }
+
 
 }
