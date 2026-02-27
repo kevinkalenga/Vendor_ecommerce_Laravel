@@ -19,4 +19,13 @@ class ProductController extends Controller
         $products = Product::latest()->get();
         return view('backend.product.product_all', compact('products'));
     }
+
+
+    public function AddProduct()
+    {
+    //   $propertyType = PropertyType::latest()->get();
+    //   $amenities = Amenities::latest()->get();
+    //   $activeAgent = User::where('status', 'active')->where('role', 'agent')->latest()->get();
+      return view('backend.product.product_add');
+    }
 }
