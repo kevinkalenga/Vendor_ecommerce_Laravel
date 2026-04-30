@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\MultiImg;
 use App\Models\Brand;
+use App\Models\User;
 
 class ProductController extends Controller
 {
@@ -23,9 +24,9 @@ class ProductController extends Controller
 
     public function AddProduct()
     {
-    //   $propertyType = PropertyType::latest()->get();
-    //   $amenities = Amenities::latest()->get();
-    //   $activeAgent = User::where('status', 'active')->where('role', 'agent')->latest()->get();
-      return view('backend.product.product_add');
+       $activeVendor = User::where('status', 'active')->where('role', 'vendor')->latest()->get();
+       $brands = Brand::latest()->get();
+       $categories = Category::latest()->get();
+      return view('backend.product.product_add', compact('brands', 'categories', 'activeVendor'));
     }
 }
