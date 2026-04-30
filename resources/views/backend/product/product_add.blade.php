@@ -125,15 +125,15 @@
 								</div>
 
 								<div class="col-12">
-									<label for="inputCollection" class="form-label">Product SubCategory</label>
-									<select name="subcategory_id" class="form-select" id="inputCollection">
+									<label for="subcategorySelect" class="form-label">Product SubCategory</label>
+									<select name="subcategory_id" class="form-select" id="subcategorySelect">
 										<option></option>
 										
 									</select>
 								</div>
 								<div class="col-12">
-									<label for="inputCollection" class="form-label">Select Vendor</label>
-									<select name="vendor_id" class="form-select" id="inputCollection">
+									<label for="vendorSelect" class="form-label">Select Vendor</label>
+									<select name="vendor_id" class="form-select" id="vendorSelect">
 										<option></option>
 										@foreach($activeVendor as $vendor)
 										   <option value="{{$vendor->id}}">{{$vendor->name}}</option>
@@ -240,19 +240,24 @@
 				// this talk about event data and by this we want to get the value
   				var category_id = $(this).val();
   				if (category_id) {
-  					$.ajax({
-  						url: "{{ url('/subcategory/ajax') }}/"+category_id,
-  						type: "GET",
-  						dataType:"json",
-  						success::function(data){
-  							$('select[name="subcategory_id"]').html('');
-  							var d =$('select[name="subcategory_id"]').empty();
-  							$.each(data, function(key, value){
-  								$('select[name="subcategory_id"]').append('<option value="'+ value.id + '">' + value.subcategory_name + '</option>');
-  							});
-  						},
+					$.ajax({
+						url: "/subcategory/ajax/" + category_id,
+						type: "GET",
+						dataType: "json",
+						success:function(data){
+							console.log(data);
 
-  					});
+							var subcat = $('#subcategorySelect'); // 👈 mieux avec ID
+							subcat.empty();
+
+							subcat.append('<option value="">Select SubCategory</option>');
+
+							$.each(data, function(key, value){
+								subcat.append('<option value="'+ value.id +'">'+ value.subcategory_name +'</option>');
+							});
+						}
+					});
+  					
   				} else {
   					alert('danger');
   				}

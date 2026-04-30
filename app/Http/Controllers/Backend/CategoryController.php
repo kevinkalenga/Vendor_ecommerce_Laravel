@@ -8,6 +8,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use App\Models\Category;
 
+
 class CategoryController extends Controller
 {
     public function AllCategory()
@@ -186,6 +187,8 @@ class CategoryController extends Controller
         ]);
     }
   }
+
+  
 
 
 

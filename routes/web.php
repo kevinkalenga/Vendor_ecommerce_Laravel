@@ -74,6 +74,8 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/edit/category/{id}', 'EditCategory')->name('edit.category');
     Route::post('/update/category/{id}', 'UpdateCategory')->name('update.category');
     Route::get('/delete/category/{id}', 'DeleteCategory')->name('delete.category');
+
+   
   });
   // All SubCategory
 
@@ -84,6 +86,8 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/edit/subcategory/{id}', 'EditSubCategory')->name('edit.subcategory');
     Route::post('/update/subcategory/{id}', 'UpdateSubCategory')->name('update.subcategory');
     Route::get('/delete/subcategory/{id}', 'DeleteSubCategory')->name('delete.subcategory');
+
+    Route::get('/subcategory/ajax/{category_id}' , 'GetSubCategory');
   
   });
   // Vendor Active and Inactive
