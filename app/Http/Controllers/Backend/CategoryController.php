@@ -26,7 +26,7 @@ class CategoryController extends Controller
       // Validation des données envoyées par le formulaire
       $request->validate([
         'category_name'  => 'required|string|max:255', // Nom de la marque obligatoire
-        'category_image' => 'required|image|mimes:jpg,jpeg,png|max:2048', // Image valide requise
+        'category_image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048', // Image valide requise
       ]);
 
     try {
@@ -95,7 +95,7 @@ class CategoryController extends Controller
     // Validation des données
     $request->validate([
         'category_name'  => 'required|string|max:255', // Nom obligatoire
-        'category_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Image facultative
+        'category_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048', // Image facultative
     ]);
 
     try {

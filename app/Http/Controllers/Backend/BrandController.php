@@ -26,7 +26,7 @@ class BrandController extends Controller
     // Validation des données envoyées par le formulaire
     $request->validate([
         'brand_name'  => 'required|string|max:255', // Nom de la marque obligatoire
-        'brand_image' => 'required|image|mimes:jpg,jpeg,png|max:2048', // Image valide requise
+        'brand_image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048', // Image valide requise
     ]);
 
     try {
@@ -95,7 +95,7 @@ class BrandController extends Controller
     // Validation des données
     $request->validate([
         'brand_name'  => 'required|string|max:255', // Nom obligatoire
-        'brand_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Image facultative
+        'brand_image' => 'nullable|image|mimes:jpg,jpeg,png,web|max:2048', // Image facultative
     ]);
 
     try {
