@@ -131,4 +131,50 @@ class ProductController extends Controller
                 ->withInput();
         }
     }
+
+    public function EditProduct($id)
+    {
+        // $activeVendor = User::where('status', 'active')->where('role', 'vendor')->latest()->get();
+        // $brands = Brand::latest()->get();
+        // $categories = Category::latest()->get();
+        // $subcategory = SubCategory::latest()->get();
+        // $products = Product::findOrFail($id);
+        // $multiImgs = MultiImg::where('product_id', $id)->get();
+        // return view('backend.product.product_edit', compact('activeVendor', 'brands', 'categories', 'products', 'subcategory', 'multiImgs'));
+
+ 
+            $activeVendor = User::where('status', 'active')
+                ->where('role', 'vendor')
+                ->latest()
+                ->get();
+
+            $brands = Brand::latest()->get();
+
+            $categories = Category::latest()->get();
+
+            $products = Product::findOrFail($id);
+
+            $subcategory = SubCategory::where(
+                'category_id',
+                $products->category_id
+            )->get();
+
+            $multiImgs = MultiImg::where(
+                'product_id',
+                $id
+            )->get();
+
+            return view(
+                'backend.product.product_edit',
+                compact(
+                    'activeVendor',
+                    'brands',
+                    'categories',
+                    'products',
+                    'subcategory',
+                    'multiImgs'
+                )
+            );
+
+    }
 }
