@@ -35,6 +35,7 @@ class ProductController extends Controller
 
     public function StoreProduct(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'product_thambnail' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
@@ -57,7 +58,7 @@ class ProductController extends Controller
                 ->resize(800, 800)
                 ->save($uploadPath.'/'.$name_gen);
 
-            Product::create([
+           $product = Product::create([
 
                 'brand_id' => $request->brand_id,
                 'category_id' => $request->category_id,
@@ -92,6 +93,30 @@ class ProductController extends Controller
 
             // Multiple Image Upload Here
 
+            if ($request->hasFile('multi_img')) {
+
+                $manager = new ImageManager(new Driver());
+                $uploadPath = public_path('upload/products/multi-image');
+
+                if (!File::exists($uploadPath)) {
+                    File::makeDirectory($uploadPath, 0775, true);
+                }
+
+                foreach ($request->file('multi_img') as $img) {
+
+                    $make_name = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
+
+                    $manager->read($img)
+                        ->resize(800, 800)
+                        ->save($uploadPath . '/' . $make_name);
+
+                    MultiImg::create([
+                        'product_id' => $product->id,
+                        'photo_name' => 'upload/products/multi-image/' . $make_name,
+                    ]);
+                }
+            }
+           
             return redirect()
                 ->route('all.product')
                 ->with([

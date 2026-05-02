@@ -96,7 +96,7 @@
      <script src="{{asset('adminbackend/assets/js/code.js')}}"></script>
 
 	  <script src="{{ asset('adminbackend/assets/plugins/input-tags/js/tagsinput.js') }}"></script>
-	  <script src='https://cdn.tiny.cloud/1/vdqx2klew412up5bcbpwivg1th6nrh3murc6maz8bukgos4v/tinymce/5/tinymce.min.js' referrerpolicy="origin"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.3/tinymce.min.js"></script>
 	 
 	  <!-- Toastr -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -126,12 +126,46 @@
      }
      @endif 
 	</script>
-
+    
 	<script>
-		tinymce.init({
-		  selector: '#mytextarea'
+		document.addEventListener("DOMContentLoaded", function () {
+
+			if(document.querySelector('#mytextarea')){
+
+				tinymce.remove('#mytextarea');
+
+				tinymce.init({
+					selector: '#mytextarea',
+
+					height: 300,
+
+					license_key: 'gpl',
+
+					branding: false,
+					promotion: false,
+
+					plugins: [
+						'paste',
+						'lists',
+						'link',
+						'image',
+						'table',
+						'code'
+					],
+
+					toolbar:
+						'undo redo | bold italic underline | ' +
+						'alignleft aligncenter alignright | ' +
+						'bullist numlist | code',
+
+					paste_as_text: false
+				});
+
+			}
+
 		});
-	</script>
+    </script>
+
 </body>
 
 </html>

@@ -73,7 +73,7 @@
 
 							<div class="form-group mb-3">
 								<label for="inputProductTitle" class="form-label">Multiple Image</label>
-								<input class="form-control" name="multi_img" type="file" id="multiImg" multiple="">
+								<input class="form-control" name="multi_img[]" type="file" id="multiImg" multiple="">
 
 								<div class="row" id="preview_img"></div>
 							</div>
@@ -289,7 +289,7 @@ $(document).ready(function () {
           var data = $(this)[0].files; //this file data
            
           $.each(data, function(index, file){ //loop though each file
-              if(/(\.|\/)(gif|jpe?g|png)$/i.test(file.type)){ //check supported file type
+              if(/(\.|\/)(gif|jpe?g|png|webp)$/i.test(file.type)){ //check supported file type
                   var fRead = new FileReader(); //new filereader
                   fRead.onload = (function(file){ //trigger function on successful read
                   return function(e) {
