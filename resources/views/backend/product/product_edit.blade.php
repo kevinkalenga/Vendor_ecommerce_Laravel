@@ -17,7 +17,7 @@
 			<hr>
 
 			<form id="myForm"
-				action="{{ route('store.product') }}"
+				action="{{ route('update.product') }}"
 				method="post"
 				enctype="multipart/form-data">
 
