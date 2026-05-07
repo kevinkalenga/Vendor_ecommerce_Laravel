@@ -171,10 +171,87 @@ class ProductController extends Controller
 
     }
 
-    public function UpdateProduct(Request $request)
+    public function UpdateProductThambnail(Request $request)
     {
             $product = Product::findOrFail($request->id);
 
+           
+
+
+
+            /*
+            ===========================
+            DELETE ONE IMAGE
+            ===========================
+            */
+
+            if($request->delete_img){
+
+                $oldImg = MultiImg::find($request->delete_img);
+
+                if($oldImg){
+
+                    if(file_exists(public_path($oldImg->photo_name))){
+                        unlink(public_path($oldImg->photo_name));
+                    }
+
+                    $oldImg->delete();
+                }
+
+             
+            }
+
+
+
+            /*
+            ===========================
+            UPDATE ONE IMAGE
+            ===========================
+            */
+
+             
+            if($request->update_img){
+
+                if($request->hasFile('multi_img')){
+
+                    $id = $request->update_img;
+
+                    $img = $request->multi_img[$id] ?? null;
+
+                    if($img){
+
+                        $oldImg = MultiImg::find($id);
+
+                        if($oldImg){
+
+                            if(file_exists(public_path($oldImg->photo_name))){
+                                unlink(public_path($oldImg->photo_name));
+                            }
+
+                            $name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
+
+                            $path = public_path('upload/products/multi-image');
+
+                            $manager = new ImageManager(new Driver());
+
+                            $manager->read($img)
+                                ->resize(800,800)
+                                ->save($path.'/'.$name);
+
+                            $oldImg->update([
+                                'photo_name' => 'upload/products/multi-image/'.$name
+                            ]);
+                        }
+                    }
+                }
+
+               return back();
+            }
+                                        
+                                        
+                                        
+                                        
+            
             try {
 
                 $save_url = $product->product_thambnail;
@@ -267,63 +344,53 @@ class ProductController extends Controller
 
                 if ($request->hasFile('multi_img')) {
 
-                    $oldImages = MultiImg::where(
-                        'product_id',
-                        $product->id
-                    )->get();
-
-
-                    foreach ($oldImages as $oldImg) {
-
-                        if (file_exists(public_path($oldImg->photo_name))) {
-
-                            unlink(public_path($oldImg->photo_name));
-                        }
-
-                        $oldImg->delete();
-                    }
-
-
-
                     $manager = new ImageManager(new Driver());
 
-                    $uploadPath =
-                        public_path('upload/products/multi-image');
-
+                    $uploadPath = public_path('upload/products/multi-image');
 
                     if (!File::exists($uploadPath)) {
-
-                        File::makeDirectory(
-                            $uploadPath,
-                            0775,
-                            true
-                        );
+                        File::makeDirectory($uploadPath, 0775, true);
                     }
 
+                    foreach ($request->file('multi_img') as $id => $img) {
 
-                    foreach ($request->file('multi_img') as $img) {
+                        // CAS 1 : UPDATE image existante
+                        if (is_numeric($id)) {
 
-                        $make_name =
-                            hexdec(uniqid()) . '.' .
-                            $img->getClientOriginalExtension();
+                            $oldImg = MultiImg::find($id);
 
+                            if ($oldImg) {
 
-                        $manager->read($img)
-                            ->resize(800, 800)
-                            ->save(
-                                $uploadPath . '/' . $make_name
-                            );
+                                if (file_exists(public_path($oldImg->photo_name))) {
+                                    unlink(public_path($oldImg->photo_name));
+                                }
 
+                                $make_name = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
 
-                        MultiImg::create([
+                                $manager->read($img)
+                                    ->resize(800, 800)
+                                    ->save($uploadPath . '/' . $make_name);
 
-                            'product_id' => $product->id,
+                                $oldImg->update([
+                                    'photo_name' => 'upload/products/multi-image/' . $make_name
+                                ]);
+                            }
+                        }
 
-                            'photo_name' =>
-                                'upload/products/multi-image/' .
-                                $make_name,
+                        // CAS 2 : NOUVELLE image (pas d'ID valide)
+                        else {
 
-                        ]);
+                            $make_name = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
+
+                            $manager->read($img)
+                                ->resize(800, 800)
+                                ->save($uploadPath . '/' . $make_name);
+
+                            MultiImg::create([
+                                'product_id' => $product->id,
+                                'photo_name' => 'upload/products/multi-image/' . $make_name,
+                            ]);
+                        }
                     }
                 }
 
@@ -351,4 +418,108 @@ class ProductController extends Controller
                     ->withInput();
             }
     }
+
+    public function DeleteProduct($id)
+    {
+        try {
+            // Récupération de la marque
+            $product = Product::findOrFail($id);
+
+            // Vérifier et supprimer l’image du dossier public
+            if ($product->product_thambnail && file_exists(public_path($product->product_thambnail))) {
+                unlink(public_path($product->product_thambnail));
+            }
+
+
+             // Supprimer multi images
+            $multiImages = MultiImg::where('product_id', $id)->get();
+            foreach ($multiImages as $img) {
+                if ($img->photo_name && file_exists(public_path($img->photo_name))) {
+                    unlink(public_path($img->photo_name));
+                }
+            }
+
+            MultiImg::where('product_id', $id)->delete();
+
+            // Supprimer la marque de la base de données
+            $product->delete();
+
+            // Redirection avec message de succès
+            $notification = array(
+            'message' => 'product Data Deleted Successfully!',
+            'alert-type' => 'success'
+            );
+
+
+        return redirect()->route('all.product')->with($notification);
+
+        } catch (\Exception $e) {
+            // Gestion des erreurs
+            return back()->withErrors([
+                'error' => $e->getMessage(),
+            ]);
+        }
+    }
+
+
+    public function UpdateSingleImage(Request $request)
+    {
+        $request->validate([
+            'img_id' => 'required',
+            'image' => 'required|image'
+        ]);
+
+        $img = MultiImg::findOrFail($request->img_id);
+
+        if ($request->hasFile('image')) {
+
+            // delete old image
+            if (file_exists(public_path($img->photo_name))) {
+                unlink(public_path($img->photo_name));
+            }
+
+            $file = $request->file('image');
+            $name = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
+
+            $path = public_path('upload/products/multi-image');
+
+            if (!file_exists($path)) {
+                mkdir($path, 0775, true);
+            }
+
+            $file = $request->file('image');
+
+            $name = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
+
+            $file->move($path, $name);
+
+            $img->update([
+                'photo_name' => 'upload/products/multi-image/'.$name
+            ]);
+        }
+
+        return back()->with([
+            'message' => 'Image mise à jour',
+            'alert-type' => 'success'
+        ]);
+    }
+
+     
+
+    public function DeleteSingleImage($id)
+    {
+            $img = MultiImg::findOrFail($id);
+
+            if (file_exists(public_path($img->photo_name))) {
+                unlink(public_path($img->photo_name));
+            }
+
+            $img->delete();
+
+            return back()->with('message', 'Image supprimée');
+    }
+
+
+
+    
 }
