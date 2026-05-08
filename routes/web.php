@@ -37,7 +37,9 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::post('/admin/password/update', [AdminController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
 });
 
- Route::get('/admin/login', [AdminController::class, 'AdminLogin']);
+Route::middleware('guest')->group(function () {
+    Route::get('/admin/login', [AdminController::class, 'AdminLogin']);
+});
 
 // Vendor Dashboard
 Route::middleware(['auth', 'role:vendor'])->group(function(){
@@ -49,7 +51,9 @@ Route::middleware(['auth', 'role:vendor'])->group(function(){
     Route::post('/vendor/password/update', [VendorController::class, 'VendorPasswordUpdate'])->name('vendor.password.update');
 });
 
-Route::get('/vendor/login', [VendorController::class, 'VendorLogin'])->name('vendor.login');
+Route::middleware('guest')->group(function () {
+  Route::get('/vendor/login', [VendorController::class, 'VendorLogin'])->name('vendor.login');
+});
 Route::get('/become/vendor', [VendorController::class, 'BecomeVendor'])->name('become.vendor');
 Route::post('/vendor/register', [VendorController::class, 'VendorRegister'])->name('vendor.register');
 
