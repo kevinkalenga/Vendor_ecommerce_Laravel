@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\SliderController;
 
 use App\Http\Controllers\Backend\VendorProductController;
 
@@ -23,9 +24,7 @@ Route::middleware(['auth'])->group(function(){
    Route::post('/user/password/update', [UserController::class, 'UserPasswordUpdate'])->name('user.password.update');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 
 // Admin Dashboard
@@ -149,6 +148,17 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/product/inactive/{id}', 'ProductInactive')->name('product.inactive');
     Route::get('/product/active/{id}', 'ProductActive')->name('product.active');
   
+  });
+
+
+    // All Slider
+
+  Route::controller(SliderController::class)->group(function(){
+    Route::get('/all/slider', 'AllSlider')->name('all.slider');
+
+    
+    
+   
   });
 
 
