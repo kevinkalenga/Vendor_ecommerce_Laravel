@@ -86,9 +86,19 @@ class CategoryController extends Controller
       //Find the specific brand record or fail with 404
       $category = Category::findOrFail($id);
 
+
       //Return the edit view with the brand data
       return view('backend.category.category_edit', compact('category'));
    }
+
+
+   public function VendorEditCategory($id)
+   {
+      $category = Category::findOrFail($id);
+
+      return view('backend.category.category_edit', compact('category'));
+   }
+  
     
 
   public function UpdateCategory(Request $request, $id)

@@ -64,11 +64,17 @@ Route::middleware(['auth', 'role:vendor'])->group(function(){
       Route::get('/vendor/product/inactive/{id}', 'VendorProductInactive')->name('vendor.product.inactive');
       Route::get('/vendor/product/active/{id}', 'VendorProductActive')->name('vendor.product.active');
       Route::get('/vendor/delete/product/{id}', 'VendorDeleteProduct')->name('vendor.delete.product');
+     
       Route::get('/vendor/subcategory/ajax/{category_id}' , 'VendorGetSubCategory');
 
      
     
     });
+
+
+    Route::get('/vendor/edit/category/{id}',
+        [CategoryController::class, 'VendorEditCategory']
+    )->name('vendor.edit.category');
 });
 
 Route::middleware('guest')->group(function () {
@@ -98,7 +104,8 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/edit/category/{id}', 'EditCategory')->name('edit.category');
     Route::post('/update/category/{id}', 'UpdateCategory')->name('update.category');
     Route::get('/delete/category/{id}', 'DeleteCategory')->name('delete.category');
-
+    
+    
    
   });
   // All SubCategory
@@ -147,6 +154,8 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 
 
 });
+
+ 
 
 
 

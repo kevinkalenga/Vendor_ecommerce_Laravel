@@ -35,8 +35,11 @@ class VendorProductController extends Controller
       return view('vendor.backend.product.vendor_product_add', compact('brands', 'categories'));
     }
 
- 
-
+    
+  
+    
+    
+    
     public function VendorGetSubCategory($category_id){
         $subcat = SubCategory::where('category_id',$category_id)->orderBy('subcategory_name','ASC')->get();
             // return json_encode($subcat);

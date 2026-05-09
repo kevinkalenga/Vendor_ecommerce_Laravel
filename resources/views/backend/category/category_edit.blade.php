@@ -51,7 +51,7 @@
 												<h6 class="mb-0">Category Image</h6>
 											</div>
 											<div class="col-sm-9 text-secondary">
-												<input type="file" name="category_image" class="form-control form-group"   id="image" />
+												<input type="file" name="category_image" class="form-control form-group" id="image" />
 											</div>
 										</div>
 										
