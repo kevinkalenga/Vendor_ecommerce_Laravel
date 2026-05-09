@@ -61,8 +61,12 @@ Route::middleware(['auth', 'role:vendor'])->group(function(){
       Route::post('/vendor/update/product/thambnail/{id}', 'VendorUpdateProductThambnail')->name('vendor.update.product.thambnail');
       Route::post('/vendor/update/single/image', 'VendorUpdateSingleImage')->name('vendor.update.single.image');
       Route::get('/vendor/delete/single/image/{id}', 'VendorDeleteSingleImage')->name('vendor.delete.single.image');
-
+      Route::get('/vendor/product/inactive/{id}', 'VendorProductInactive')->name('vendor.product.inactive');
+      Route::get('/vendor/product/active/{id}', 'VendorProductActive')->name('vendor.product.active');
+      Route::get('/vendor/delete/product/{id}', 'VendorDeleteProduct')->name('vendor.delete.product');
       Route::get('/vendor/subcategory/ajax/{category_id}' , 'VendorGetSubCategory');
+
+     
     
     });
 });
@@ -136,7 +140,7 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::post('/product/multi-image/update', 'UpdateSingleImage')->name('update.single.image');
     Route::get('/product/multi-image/delete/{id}','DeleteSingleImage')->name('delete.single.image');
     Route::get('/product/inactive/{id}', 'ProductInactive')->name('product.inactive');
-    Route::get('/product/nactive/{id}', 'ProductActive')->name('product.active');
+    Route::get('/product/active/{id}', 'ProductActive')->name('product.active');
   
   });
 

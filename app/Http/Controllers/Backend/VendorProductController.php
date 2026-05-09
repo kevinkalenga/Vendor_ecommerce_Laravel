@@ -631,6 +631,54 @@ class VendorProductController extends Controller
    }
 
 
+    public function VendorDeleteProduct($id)
+    {
+        try {
+            // Récupération de la marque
+            $product = Product::findOrFail($id);
+
+            // Vérifier et supprimer l’image du dossier public
+            if ($product->product_thambnail && file_exists(public_path($product->product_thambnail))) {
+                unlink(public_path($product->product_thambnail));
+            }
+
+
+             // Supprimer multi images
+            $multiImages = MultiImg::where('product_id', $id)->get();
+            foreach ($multiImages as $img) {
+                if ($img->photo_name && file_exists(public_path($img->photo_name))) {
+                    unlink(public_path($img->photo_name));
+                }
+            }
+
+            MultiImg::where('product_id', $id)->delete();
+
+            // Supprimer la marque de la base de données
+            $product->delete();
+
+            // Redirection avec message de succès
+            $notification = array(
+            'message' => 'Vendor product Deleted Successfully!',
+            'alert-type' => 'success'
+            );
+
+
+        return redirect()->back()->with($notification);
+
+        } catch (\Exception $e) {
+            // Gestion des erreurs
+            return back()->withErrors([
+                'error' => $e->getMessage(),
+            ]);
+        }
+    }
+   
+   
+   
+    
+   
+    
+   
     public function VendorUpdateSingleImage(Request $request)
     {
         $request->validate([
@@ -692,5 +740,39 @@ class VendorProductController extends Controller
 
             return back()->with('message', 'Vendor Deleted Image Successfully!');
     }
+
+
+    public function VendorProductInactive($id) 
+    {
+        Product::findOrFail($id)->update(['status' => 0]);
+
+         
+        // Redirection avec message de succès
+        $notification = array(
+        'message' => 'Vendor Product Inactive Successfully!',
+        'alert-type' => 'success'
+        );
+
+
+        return redirect()->back()->with($notification);
+    }
+    public function VendorProductActive($id) 
+    {
+        Product::findOrFail($id)->update(['status' => 1]);
+
+         
+        // Redirection avec message de succès
+        $notification = array(
+        'message' => 'Vendor Product Active Successfully!',
+        'alert-type' => 'success'
+        );
+
+
+        return redirect()->back()->with($notification);
+    }
+
+
+
+    
 
 }
