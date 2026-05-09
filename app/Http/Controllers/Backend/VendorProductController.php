@@ -26,4 +26,21 @@ class VendorProductController extends Controller
         $products = Product::where('vendor_id', $id)->latest()->get();
         return view('vendor.backend.product.vendor_product_all', compact('products'));
     }
+
+    public function VendorAddProduct()
+    {
+     
+       $brands = Brand::latest()->get();
+       $categories = Category::latest()->get();
+      return view('vendor.backend.product.vendor_product_add', compact('brands', 'categories'));
+    }
+
+ 
+
+    public function VendorGetSubCategory($category_id){
+        $subcat = SubCategory::where('category_id',$category_id)->orderBy('subcategory_name','ASC')->get();
+            // return json_encode($subcat);
+        return response()->json($subcat);
+
+    }
 }
