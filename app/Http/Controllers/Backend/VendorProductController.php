@@ -679,4 +679,18 @@ class VendorProductController extends Controller
        
     }
 
+
+    public function VendorDeleteSingleImage($id)
+    {
+            $img = MultiImg::findOrFail($id);
+
+            if (file_exists(public_path($img->photo_name))) {
+                unlink(public_path($img->photo_name));
+            }
+
+            $img->delete();
+
+            return back()->with('message', 'Vendor Deleted Image Successfully!');
+    }
+
 }

@@ -60,6 +60,7 @@ Route::middleware(['auth', 'role:vendor'])->group(function(){
       Route::get('/vendor/edit/product/{id}', 'VendorEditProduct')->name('vendor.edit.product');
       Route::post('/vendor/update/product/thambnail/{id}', 'VendorUpdateProductThambnail')->name('vendor.update.product.thambnail');
       Route::post('/vendor/update/single/image', 'VendorUpdateSingleImage')->name('vendor.update.single.image');
+      Route::get('/vendor/delete/single/image/{id}', 'VendorDeleteSingleImage')->name('vendor.delete.single.image');
 
       Route::get('/vendor/subcategory/ajax/{category_id}' , 'VendorGetSubCategory');
     

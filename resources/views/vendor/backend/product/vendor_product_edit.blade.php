@@ -157,7 +157,7 @@
 
                                                     <!-- DELETE -->
                                                     <td>
-                                                        <a href="{{ route('delete.single.image', $img->id) }}"
+                                                        <a href="{{ route('vendor.delete.single.image', $img->id) }}"
                                                            class="btn btn-danger btn-sm"
                                                            onclick="return confirm('Supprimer cette image ?')">
                                                             Delete
