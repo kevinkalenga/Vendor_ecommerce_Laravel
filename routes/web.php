@@ -10,6 +10,8 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ProductController;
 
+use App\Http\Controllers\Backend\VendorProductController;
+
 Route::get('/', function () {
     return view('frontend.index');
 });
@@ -49,6 +51,12 @@ Route::middleware(['auth', 'role:vendor'])->group(function(){
     Route::post('/vendor/profile/store', [VendorController::class, 'VendorProfileStore'])->name('vendor.profile.store');
     Route::get('/vendor/change/password', [VendorController::class, 'VendorChangePassword'])->name('vendor.change.profile');
     Route::post('/vendor/password/update', [VendorController::class, 'VendorPasswordUpdate'])->name('vendor.password.update');
+
+    // Vendor All Product Routes
+    Route::controller(VendorProductController::class)->group(function(){
+      Route::get('vendor/all/product', 'VendorAllProduct')->name('vendor.all.product');
+    
+    });
 });
 
 Route::middleware('guest')->group(function () {
