@@ -172,6 +172,9 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/all/banner', 'AllBanner')->name('all.banner');
     Route::get('/add/banner', 'AddBanner')->name('add.banner');
     Route::post('/store/banner', 'StoreBanner')->name('store.banner');
+    Route::get('/edit/banner/{id}', 'EditBanner')->name('edit.banner');
+    Route::post('/update/banner/{id}', 'UpdateBanner')->name('update.banner');
+    Route::get('/delete/banner/{id}', 'DeleteBanner')->name('delete.banner');
     
 
     

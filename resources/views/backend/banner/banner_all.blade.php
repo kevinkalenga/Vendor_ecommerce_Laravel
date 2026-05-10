@@ -50,8 +50,8 @@
 											<img src="{{asset($item->banner_image)}}" style="width: 70px; height:40px;">
 										</td>
 										<td>
-											<a href="{{route('edit.slider', $item->id)}}" class="btn btn-info">Edit</a>
-											<a href="{{route('delete.slider', $item->id)}}" class="btn btn-danger delete-button">Delete</a>
+											<a href="{{route('edit.banner', $item->id)}}" class="btn btn-info">Edit</a>
+											<a href="{{route('delete.banner', $item->id)}}" class="btn btn-danger delete-button">Delete</a>
 										</td>
 										
 									</tr>
