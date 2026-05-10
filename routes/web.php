@@ -170,6 +170,8 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 
   Route::controller(BannerController::class)->group(function(){
     Route::get('/all/banner', 'AllBanner')->name('all.banner');
+    Route::get('/add/banner', 'AddBanner')->name('add.banner');
+    Route::post('/store/banner', 'StoreBanner')->name('store.banner');
     
 
     
