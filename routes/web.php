@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Backend\BannerController;
 
 use App\Http\Controllers\Backend\VendorProductController;
 
@@ -160,6 +161,16 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/edit/slider/{id}', 'EditSlider')->name('edit.slider');
     Route::post('/update/slider/{id}', 'UpdateSlider')->name('update.slider');
     Route::get('/delete/slider/{id}', 'DeleteSlider')->name('delete.slider');
+
+    
+    
+   
+  });
+    // All Banner
+
+  Route::controller(BannerController::class)->group(function(){
+    Route::get('/all/banner', 'AllBanner')->name('all.banner');
+    
 
     
     
